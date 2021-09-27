@@ -7,7 +7,7 @@ development:
   <<: *default
   database: slowfood_api_team_one_development
 
-  test:
+test:
   <<: *default
   database: slowfood_api_team_one_test
 
