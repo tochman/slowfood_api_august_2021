@@ -15,7 +15,7 @@ RSpec.describe 'GET /api/products/:id' do
     end
 
     it 'is expected to return the requested products price' do
-      expect(response_json['product']['price']).to eq 40
+      expect(response_json['product']['price']).to eq "40.0"
     end
   end
 end 
