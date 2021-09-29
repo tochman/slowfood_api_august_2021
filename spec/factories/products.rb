@@ -3,5 +3,6 @@ FactoryBot.define do
     name { "MyString" }
     price { 40.0 }
     description { "MyString" }
+    image { "https://picsum.photos/200" }
   end
 end
