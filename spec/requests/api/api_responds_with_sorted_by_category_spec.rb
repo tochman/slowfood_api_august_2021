@@ -4,7 +4,7 @@ RSpec.describe 'GET api/products/:category' do
     before do
       get "/api/products/MyString"
     end
-
+    
     it 'is expected to return a 200 response status' do
       expect(response).to have_http_status 200
     end
