@@ -10,6 +10,7 @@ gem 'bootsnap', '>= 1.2', require: false
 gem 'rails', '~> 6.0.2'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.7'
+gem 'devise_token_auth'
 gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
