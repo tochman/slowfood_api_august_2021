@@ -4,6 +4,7 @@ RSpec.describe Product, type: :model do
     it { is_expected.to have_db_column :price }
     it { is_expected.to have_db_column :description }
     it { is_expected.to have_db_column :image }
+    it { is_expected.to have_db_column :category }
   end
 
   describe 'Validations' do
@@ -13,7 +14,7 @@ RSpec.describe Product, type: :model do
   end
 
   describe 'Factory' do
-    it 'should have valid Factory' do
+    it 'is expected to have valid Factory' do
       expect(create(:product)).to be_valid
     end
   end
