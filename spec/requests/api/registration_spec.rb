@@ -16,9 +16,12 @@ RSpec.describe 'POST /api/auth/' do
       expect(response).to have_http_status 200
     end
 
-    it 'is expected to return an access token to the user' do
-      # binding.pry
+    it 'is expected to return an access token to the user' do      
       expect(response.header['access-token']).not_to eq nil
+    end
+
+    it 'is expected to that users databse contains new user' do
+      expect(User.all.first.email).to eq 'user@email.com'
     end
   end
 end
