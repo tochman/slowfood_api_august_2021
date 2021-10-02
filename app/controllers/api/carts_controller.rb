@@ -1,11 +1,26 @@
 class Api::CartsController < ApplicationController
   def show
-    @cart = @current_cart
     carts = Cart.all
-    current_cart
-    render json: { carts: carts}
+    render json: { carts: carts }
   end
+
   def create
-    current_cart
+    product = Product.find(params['product_id'])
+    cart = current_user.carts.create
+    # if session[:cart_id]
+    #   cart = Cart.find_by(id: session[:cart_id])
+    #   if cart.present?
+    #     @current_cart = cart
+    #   else
+    #     session[:cart_id] = nil
+    #   end
+    # end
+
+    # if session[:cart_id].nil?
+
+    #   @current_cart = Cart.create # (name: Product.first[:name], unit_price: Product.first[:price])
+
+    #   session[:cart_id] = @current_cart
+    # end
   end
 end

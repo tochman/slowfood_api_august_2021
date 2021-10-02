@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_10_02_114757) do
     t.decimal "unit_price"
     t.integer "quantity"
     t.decimal "price"
-    t.integer "cart_id"
+    t.integer "user_id"
   end
 
   create_table "products", force: :cascade do |t|

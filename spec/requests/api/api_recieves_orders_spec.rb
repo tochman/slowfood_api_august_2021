@@ -1,16 +1,20 @@
 RSpec.describe('GET api/carts') do
   describe 'successfully' do
-    let!(:carts) { create(:cart, name: 'Kangaroo Steak', unit_price: 500, quantity: 2, price: 1000, cart_id: 0001) }
+    let(:product) { create(:product) }
+    let(:user) { create(:user) }
+    let(:cart) { create(:cart, name: 'Kangaroo Steak', unit_price: 500, quantity: 2, price: 1000, user_id: 1300) }
+    let(:auth_headers) { user.create_new_auth_token }
+
 
     before do
       get '/api/carts/show'
     end
-    
-    it 'is expected to return a 200 response status' do
-      expect(response).to have_http_status 200
-      binding.pry
-    end
 
+    it 'is expected to return a 200 response status' do
+      binding.pry
+      expect(response).to have_http_status 200
+    end
+    
     it 'is expected to return an item name' do
       expect(response_json['carts'].first['name']).to eq 'Kangaroo Steak'
     end

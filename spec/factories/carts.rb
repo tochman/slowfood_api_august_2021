@@ -4,6 +4,6 @@ FactoryBot.define do
     unit_price { 500 }
     quantity { 2 }
     price { 1000 }
-    cart_id { 0001 }
+    user_id { 0001 }
   end
 end

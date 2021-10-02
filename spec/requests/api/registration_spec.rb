@@ -15,7 +15,6 @@ RSpec.describe "POST /api/auth/" do
     end
 
     it "is expected to return an access token to the user" do
-      binding.pry
       expect(response.header["access-token"]).not_to eq nil
     end
 
