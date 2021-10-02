@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
   private
 
   def current_cart
-    if session[:card_id]
+    if session[:cart_id]
       cart = Cart.find_by(id: session[:cart_id])
       if cart.present?
         @current_cart = cart
@@ -15,7 +15,7 @@ class ApplicationController < ActionController::API
 
     if session[:cart_id].nil?
       @current_cart = Cart.create
-      sesssion[:cart_id] = @current_cart
+      session[:cart_id] = @current_cart
     end
   end
 end
