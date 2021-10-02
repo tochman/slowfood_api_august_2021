@@ -4,6 +4,11 @@ RSpec.describe'POST /api/carts', type: :request do
     let!(:user) { create(:user)}
     
     before do
+      post "/api/auth/sign_in",
+      params: {
+        email: user.email,
+        password: user.password,
+      }
       post '/api/carts/create'
     end
     
