@@ -5,4 +5,7 @@ class Api::CartsController < ApplicationController
     current_cart
     render json: { carts: carts}
   end
+  def create
+    current_cart
+  end
 end

@@ -14,7 +14,9 @@ class ApplicationController < ActionController::API
     end
 
     if session[:cart_id].nil?
-      @current_cart = Cart.create
+
+      @current_cart = Cart.create(name: Product.first[:name], unit_price: Product.first[:price])
+
       session[:cart_id] = @current_cart
     end
   end
