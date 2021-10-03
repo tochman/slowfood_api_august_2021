@@ -12,12 +12,29 @@ RSpec.describe 'POST /api/carts', type: :request do
            headers: auth_headers
     end
 
-    it 'is expected to return a 201 response status' do
-      binding.pry
-      expect(response).to have_http_status 201
+    it 'is expected to return a 204 response status' do
+      expect(response).to have_http_status 204
     end
     it 'is expected to return an item name' do
-      expect(['Carts'].first['user_id']).to_not be nil
+      binding.pry
+      expect(response_json['Carts']['product'].name).to eq 'MyString'
+    end
+  end
+  
+  describe 'The sad path where user is not authorized' do
+    let(:product) { create(:product) }
+    let(:user) { create(:user) }
+    let(:auth_headers) { user.create_new_auth_token }
+
+    before do
+      post '/api/carts',
+           params: {
+             product_id: product.id
+           },
+           headers: {}
+    end
+    it ' is expected to return a 401 response status' do
+      expect(response).to have_http_status 401
     end
   end
 end

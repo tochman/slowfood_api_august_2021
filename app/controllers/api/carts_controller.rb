@@ -7,6 +7,7 @@ class Api::CartsController < ApplicationController
   def create
     product = Product.find(params['product_id'])
     cart = current_user.carts.create
+    cart_product = current_product
     # if session[:cart_id]
     #   cart = Cart.find_by(id: session[:cart_id])
     #   if cart.present?
