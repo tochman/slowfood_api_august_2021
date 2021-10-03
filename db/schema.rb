@@ -26,9 +26,6 @@ ActiveRecord::Schema.define(version: 2021_10_03_084309) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.decimal "unit_price"
-    t.integer "quantity"
-    t.decimal "price"
     t.integer "user_id"
   end
 

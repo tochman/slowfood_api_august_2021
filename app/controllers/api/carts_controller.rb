@@ -7,21 +7,17 @@ class Api::CartsController < ApplicationController
   def create
     product = Product.find(params['product_id'])
     cart = current_user.carts.create
-    cart_product = current_product
-    # if session[:cart_id]
-    #   cart = Cart.find_by(id: session[:cart_id])
-    #   if cart.present?
-    #     @current_cart = cart
-    #   else
-    #     session[:cart_id] = nil
-    #   end
-    # end
-
-    # if session[:cart_id].nil?
-
-    #   @current_cart = Cart.create # (name: Product.first[:name], unit_price: Product.first[:price])
-
-    #   session[:cart_id] = @current_cart
-    # end
+    cart.cart_products.create(product_id: product.id)
+    if cart.persisted?
+      render json: {
+        message: 'This product was added to your cart!',
+        cart: {
+          id: cart.id,
+          products: cart.cart_products
+        }
+      }, status: 201
+    else
+      render json: { message: 'Something went wrong! ' }, status: 422
+    end
   end
 end
