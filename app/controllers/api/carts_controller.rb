@@ -6,7 +6,7 @@ class Api::CartsController < ApplicationController
     product = Product.find(params['product_id'])
     cart = current_user.carts.create
     cart.cart_products.create(product_id: product.id)
-    is_cart_valid(cart, cart, 201)
+    is_cart_valid(cart, 201)
   end
 
   private
@@ -15,18 +15,13 @@ class Api::CartsController < ApplicationController
     render json: { message: 'Unauthorized request!' }, status: 422
   end
 
-  def is_cart_valid(checking, cart, status)
-    if checking.persisted?
-
-      render json: {
-        message: 'This product was added to your cart!',
-        cart: {
-          id: cart.id,
-          products: cart.products
-        }
-      }, status: status
-    else
-      custom_error
-    end
+  def is_cart_valid(cart, status)
+    render json: {
+      message: 'This product was added to your cart!',
+      cart: {
+        id: cart.id,
+        products: cart.products
+      }
+    }, status: status
   end
 end
