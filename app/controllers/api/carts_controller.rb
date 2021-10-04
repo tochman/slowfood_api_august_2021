@@ -1,9 +1,4 @@
 class Api::CartsController < ApplicationController
-  def show
-    carts = Cart.all
-    render json: { carts: carts }
-  end
-
   def create
     product = Product.find(params['product_id'])
     cart = current_user.carts.create
@@ -13,7 +8,7 @@ class Api::CartsController < ApplicationController
         message: 'This product was added to your cart!',
         cart: {
           id: cart.id,
-          products: cart.cart_products
+          products: cart.products
         }
       }, status: 201
     else
