@@ -20,7 +20,8 @@ class Api::CartsController < ApplicationController
       message: 'This product was added to your cart!',
       cart: {
         id: cart.id,
-        products: cart.products
+        products: cart.products,
+        product_name: cart.products[0].name
       }
     }, status: 201
   end

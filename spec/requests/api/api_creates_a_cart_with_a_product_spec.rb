@@ -27,6 +27,10 @@ RSpec.describe 'POST /api/carts', type: :request do
     it 'is expected to return an array of items' do
       expect(response_json['cart']['products'].count).to eq 1
     end
+
+    it 'is expected to return the name of the first item' do
+      expect(response_json['cart']['products'][0]['name']).to eq 'MyString'
+    end
   end
 
   describe 'unauthorized user can not create cart ' do
