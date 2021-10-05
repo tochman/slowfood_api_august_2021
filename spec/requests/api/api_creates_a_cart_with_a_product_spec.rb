@@ -3,7 +3,7 @@ RSpec.describe 'POST /api/carts', type: :request do
   let(:product) { create(:product) }
   let(:user) { create(:user) }
   let(:auth_headers) { user.create_new_auth_token }
-  describe 'authorized user can create an order' do
+  describe 'authorized user can create an cart' do
     before do
       post '/api/carts',
            params: {
@@ -29,7 +29,7 @@ RSpec.describe 'POST /api/carts', type: :request do
     end
   end
 
-  describe 'Unsuccesful request with ' do
+  describe 'unauthorized user can not create cart ' do
     before do
       post '/api/carts',
            params: {
@@ -45,7 +45,7 @@ RSpec.describe 'POST /api/carts', type: :request do
     end
   end
 
-  describe 'Unsuccesful request with invalid product id' do
+  describe 'unsuccesful request with invalid product id' do
     before do
       post '/api/carts',
            params: {
@@ -54,8 +54,8 @@ RSpec.describe 'POST /api/carts', type: :request do
            headers: auth_headers
     end
     it { is_expected.to have_http_status 422 }
-    it 'is expected to show error message when product id is not valid' do
-      expect(response_json['message']).to eq 'Unauthorized request!'
+    it 'is expected to show error message:' do
+      expect(response_json['message']).to eq 'Product not found!'
     end
   end
 end
