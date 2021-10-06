@@ -9,6 +9,10 @@ class Api::CartsController < ApplicationController
     render_response(cart, product)
   end
 
+  def update
+    
+  end
+
   private
 
   def custom_error
