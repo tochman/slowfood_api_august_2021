@@ -10,7 +10,7 @@ RSpec.describe 'PUT /api/carts', type: :request do
       cart.cart_products.create(product_id: product_existing.id)
       put "/api/carts/#{cart.id}",
           params: {
-            product_id: product.id,
+            product_id: product.id
           },
           headers: auth_headers
     end
@@ -18,7 +18,6 @@ RSpec.describe 'PUT /api/carts', type: :request do
     it { is_expected.to have_http_status 200 }
 
     it 'is expected to return an array of items' do
-      # binding.pry
       expect(response_json['cart']['products'].count).to eq 2
     end
 
@@ -28,7 +27,7 @@ RSpec.describe 'PUT /api/carts', type: :request do
       )
     end
   end
-  
+
   describe 'unauthorized user can not create cart ' do
     before do
       post '/api/carts',
