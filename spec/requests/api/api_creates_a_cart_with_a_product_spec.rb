@@ -1,6 +1,6 @@
 RSpec.describe 'POST /api/carts', type: :request do
   subject { response }
-  let(:product) { create(:product) }
+  let(:product) { create(:product, name: 'Kangaroo Steak') }
   let(:user) { create(:user) }
   let(:auth_headers) { user.create_new_auth_token }
   describe 'authorized user can create an cart' do
@@ -16,7 +16,7 @@ RSpec.describe 'POST /api/carts', type: :request do
 
     it 'is expected to return a message' do
       expect(response_json['message']).to eq(
-        'This product was added to your cart!'
+        'Kangaroo Steak was added to your cart!'
       )
     end
 
@@ -26,10 +26,6 @@ RSpec.describe 'POST /api/carts', type: :request do
 
     it 'is expected to return an array of items' do
       expect(response_json['cart']['products'].count).to eq 1
-    end
-
-    it 'is expected to return the name of the first item' do
-      expect(response_json['cart']['products'][0]['name']).to eq 'MyString'
     end
   end
 
