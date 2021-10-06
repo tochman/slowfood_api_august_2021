@@ -6,7 +6,7 @@ class Api::CartsController < ApplicationController
     product = Product.find(params['product_id'])
     cart = current_user.carts.create
     cart.cart_products.create(product_id: product.id)
-    render_response(cart)
+    render_response(cart, product)
   end
 
   private
@@ -15,12 +15,12 @@ class Api::CartsController < ApplicationController
     render json: { message: 'Product not found!' }, status: 422
   end
 
-  def render_response(cart)
+  def render_response(cart, product)
     render json: {
-      message: "#{cart.products[0].name} was added to your cart!",
+      message: "#{product.name} was added to your cart!",
       cart: {
         id: cart.id,
-        products: cart.products,
+        products: cart.products
       }
     }, status: 201
   end
