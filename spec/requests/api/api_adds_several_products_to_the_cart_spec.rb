@@ -1,7 +1,7 @@
 RSpec.describe 'PUT /api/carts', type: :request do
   subject { response }
   let(:product_1) { create(:product, name: 'Kangaroo Steak') }
-  let(:product_2) { create(:product, name: 'Whale Blubber Stew') }
+  let(:product) { create(:product, name: 'Whale Blubber Stew') }
   let(:user) { create(:user) }
   let(:cart) { create(:cart, user_id: user.id) }
   let(:auth_headers) { user.create_new_auth_token }
@@ -10,7 +10,8 @@ RSpec.describe 'PUT /api/carts', type: :request do
       cart.cart_products.create(product_id: product_1.id)
       put "/api/carts/#{cart.id}",
           params: {
-            products: product_2.id
+            product_id: product.id,
+            cart_id: cart.id
           },
           headers: auth_headers
     end
@@ -18,6 +19,7 @@ RSpec.describe 'PUT /api/carts', type: :request do
     it { is_expected.to have_http_status 200 }
 
     it 'is expected to return an array of items' do
+      binding.pry
       expect(response_json['cart']['products'].count).to eq 2
     end
 
