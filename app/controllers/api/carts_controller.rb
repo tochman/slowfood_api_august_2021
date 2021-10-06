@@ -11,11 +11,9 @@ class Api::CartsController < ApplicationController
 
   def update
     new_product = Product.find(params['product_id'])
-    # binding.pry
-    cart = current_user.carts.update(cart)
+    cart = Cart.find(params['id'])
     cart.cart_products.create(product_id: new_product.id)
-    
-    render_response(cart, product, 200)
+    render_response(cart, new_product, 200)
   end
 
   private
