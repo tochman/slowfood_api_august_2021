@@ -43,6 +43,13 @@ RSpec.describe 'POST /api/carts', type: :request do
     it 'is expected to show error message' do
       expect(response_json['errors']).to eq ['You need to sign in or sign up before continuing.']
     end
+
+    it do
+      expect(response_json['cart'])
+        .to have_key('finalized')
+        .and have_value(false)
+    end
+    
   end
 
   describe 'unsuccesful request with invalid product id' do
