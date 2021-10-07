@@ -26,6 +26,12 @@ RSpec.describe 'PUT /api/carts/:id', type: :request do
     it 'is expected to include delivery time message' do
       expect(response_json['message']).to eq 'Your order is ready for pick-up at 12:00 PM'
     end
+
+    it do
+      expect(response_json['cart'])
+        .to have_key('finalized')
+        .and have_value(true)
+    end
   end
 
   describe 'the request does NOT include a valid cart id' do
