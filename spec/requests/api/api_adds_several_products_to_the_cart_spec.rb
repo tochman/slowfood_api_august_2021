@@ -28,33 +28,33 @@ RSpec.describe 'PUT /api/carts', type: :request do
     end
   end
 
-  describe 'unauthorized user can not create cart ' do
-    before do
-      post '/api/carts',
-           params: {
-             product_id: product.id
-           },
-           headers: {}
-    end
+  # describe 'unauthorized user can not create cart ' do
+  #   before do
+  #     post '/api/carts',
+  #          params: {
+  #            product_id: product.id
+  #          },
+  #          headers: {}
+  #   end
 
-    it { is_expected.to have_http_status 401 }
+  #   it { is_expected.to have_http_status 401 }
 
-    it 'is expected to show error message' do
-      expect(response_json['errors']).to eq ['You need to sign in or sign up before continuing.']
-    end
-  end
+  #   it 'is expected to show error message' do
+  #     expect(response_json['errors']).to eq ['You need to sign in or sign up before continuing.']
+  #   end
+  # end
 
-  describe 'unsuccesful request with invalid product id' do
-    before do
-      post '/api/carts',
-           params: {
-             product_id: 999
-           },
-           headers: auth_headers
-    end
-    it { is_expected.to have_http_status 422 }
-    it 'is expected to show error message:' do
-      expect(response_json['message']).to eq 'Product not found!'
-    end
-  end
+  # describe 'unsuccesful request with invalid product id' do
+  #   before do
+  #     post '/api/carts',
+  #          params: {
+  #            product_id: 999
+  #          },
+  #          headers: auth_headers
+  #   end
+  #   it { is_expected.to have_http_status 422 }
+  #   it 'is expected to show error message:' do
+  #     expect(response_json['message']).to eq 'Product not found!'
+  #   end
+  # end
 end

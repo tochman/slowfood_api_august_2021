@@ -6,26 +6,42 @@ RSpec.describe 'PUT /api/carts/:id', type: :request do
   let(:product_2) { create(:product) }
   let(:cart) { create(:cart, user: user, products: [product_1, product_2]) }
 
-  before do
+  describe 'the request includes a valid cart id' do
+    before do
+      Timecop.freeze(Time.local(2008, 9, 1, 11, 30, 0))
+      put "/api/carts/#{cart.id}",
+          params: {
+            finalized: true
+          },
+          headers: auth_headers
+    end
 
-    put "/api/carts/#{cart.id}",
-        params: {
-          cart: cart.id,
-          finalized: true
-        },
-        headers: auth_headers
+    it { is_expected.to have_http_status 200 }
+
+    it 'is expected to update cart#finalized to "true"' do
+      cart.reload
+      expect(cart.finalized?).to eq true
+    end
+
+    it 'is expected to include delivery time message' do
+      expect(response_json['message']).to eq 'Your order is ready for pick-up at 12:00 PM'
+    end
   end
 
-  it { is_expected.to have_http_status 200 }
+  describe 'the request does NOT include a valid cart id' do
+    before do
+      Timecop.freeze(Time.local(2008, 9, 1, 11, 30, 0))
+      put '/api/carts/999',
+          params: {
+            finalized: true
+          },
+          headers: auth_headers
+    end
 
-  it 'is expected to update cart#finalized to "true"' do
-    cart.reload
-    expect(cart.finalized?).to eq true
+    it { is_expected.to have_http_status 422 }
+
+    it 'is expected to include an error message' do
+      expect(response_json['message']).to eq 'We could not process your request.'
+    end
   end
-
-  it 'is expected to include delivery time message' do
-    # arrenge that time at request is 11:30 AM
-    expect(response_json['message']).to eq 'Your order is ready for pick-up at 12:00 PM'
-  end
-
 end

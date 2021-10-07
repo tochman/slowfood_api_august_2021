@@ -13,17 +13,17 @@ class Api::CartsController < ApplicationController
     cart = Cart.find(params['id'])
     if params[:finalized]
       cart.update(finalized: params[:finalized])
-      render_response(cart, "Your order is ready for pick-up at 12:00 PM", 200) and return
+      render_response(cart, "Your order is ready for pick-up at #{(Time.now + 30.minutes).strftime("%l:%M %p")}", 200) and return
     end
-    new_product = Product.find(params['product_id'])
-    cart.cart_products.create(product_id: new_product.id)
+    product = Product.find(params['product_id'])
+    cart.cart_products.create(product: product)
     render_response(cart, "#{product.name} was added to your cart!", 200)
   end
 
   private
 
   def custom_error
-    render json: { message: 'Product not found!' }, status: 422
+    render json: { message: 'We could not process your request.' }, status: 422
   end
 
   def render_response(cart, message, status)
